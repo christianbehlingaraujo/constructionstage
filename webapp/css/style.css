@@ -1,0 +1,56 @@
+.sapFCard {
+    display: flex;
+    align-items: center;
+}
+
+.sapSuiteRMCVerticalAlignmentContainer .sapSuiteRMCInnerContainer {
+    position: relative;
+    height: 100%;
+    display: inline-block;
+    justify-content: center;
+    margin-left: 50px;
+}
+
+.sapSuiteUiCommonsMicroProcessFlowScrolling {
+    display: flex;
+    flex-direction: row;
+    margin: 2px;
+    width: 100%;
+    justify-content: center;
+}
+
+.sapUiFormM:not(.sapUiFormEdit)>.sapUiFormResGrid>div:not(.sapMTB) {
+    padding-bottom: 0.75rem;
+    align-items: end;
+    justify-content: space-between;
+    margin-left: 200px;
+}
+
+.sapMObjStatus>.sapMObjStatusTitle {
+    padding-right: 0.25rem;
+    margin-right: 5px;
+}
+
+.gridListEnterprises {
+    width: 100%;
+    height: 190px;
+
+    margin-top: 10px;
+    margin-left: 23px;
+}
+
+.gridListEnterprisesScroll {
+    overflow-y: auto;
+}
+
+@media(max-width: 1024px){
+    .sapUiFormM:not(.sapUiFormEdit)>.sapUiFormResGrid>div:not(.sapMTB) {
+        margin-left: 0;
+    }
+}
+
+@media(max-width: 425px){
+    .gridListEnterprises {
+        margin-left: 14px;
+    }
+}

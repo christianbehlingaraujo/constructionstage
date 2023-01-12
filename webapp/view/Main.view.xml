@@ -1,0 +1,396 @@
+<mvc:View 
+	controllerName="com.itsgroup.brz.constructionstage.controller.Main" 
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m" 
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:grid="sap.ui.layout.cssgrid"
+	xmlns:commons="sap.suite.ui.commons"
+	xmlns:microchart="sap.suite.ui.microchart"
+	displayBlock="true"
+>
+	<NavContainer id="navContainer">
+		<pages>
+			<Page id="contentPage" showHeader="false" backgroundDesign="Solid">
+				<content>
+					<f:GridList
+						id="gridList"
+						class="gridListEnterprises"
+						items="{enterprises>/items}"
+					>
+						<f:customLayout>
+							<grid:GridBoxLayout boxMinWidth="23.3rem" boxWidth="23.3rem"/>
+						</f:customLayout>
+
+						<f:GridListItem
+							id="gridListItem"
+							press="onPressGridListItem"
+							type="Active"
+						> 	
+							<VBox alignItems="Center" justifyContent="Center" height="180px">
+								<Title
+									level="Auto"
+									text="{enterprises>name}"
+									titleStyle="H5"
+								/>
+
+								<grid:CSSGrid
+										id="gridContainer"
+										class="sapUiSmallMarginTop"
+										gridTemplateRows="1fr"
+										gridTemplateColumns="1fr 1fr"
+										gridGap="0.5rem"
+									>
+									<Label text="{i18n>mainDeliveryDateTitle}:"/>
+									<Text text="{enterprises>deliveryDate}"/>
+								</grid:CSSGrid>
+
+								<grid:CSSGrid
+										id="gridContainerLastUpdate"
+										class="sapUiSmallMarginTop"
+										gridTemplateRows="1fr 1fr"
+										gridTemplateColumns="1fr"
+										gridGap="0.2rem"
+									>
+									<grid:CSSGrid
+										id="gridContainer1"
+										class="sapUiSmallMarginTop"
+										gridTemplateRows="1fr"
+										gridTemplateColumns="1fr 1fr"
+										gridGap="0.5rem"
+									>
+										<Label text="{i18n>mainLabelTextLastUpdate}:"/>
+										<Text text="{enterprises>lastUpdate}"/>
+									</grid:CSSGrid>
+
+									<ObjectStatus
+										text="{enterprises>workStage}"
+										title="{i18n>mainWorkStageTitle}"
+										icon="sap-icon://eam-work-order"
+										state="Warning"
+									/>
+								</grid:CSSGrid>
+							</VBox>
+						</f:GridListItem>
+					</f:GridList>
+
+
+					<Panel id="DetailEnterprise" backgroundDesign="Solid" visible="false">
+						<ObjectHeader
+							backgroundDesign="Solid"
+							title="{constructionProgress>/name}"
+							titleLevel="H1"
+							titleTextDirection="Inherit"
+						>
+							<attributes>
+								<ObjectAttribute
+									active="false"
+									text="{constructionProgress>/deliveryDate}"
+									title="{i18n>mainDeliveryDateTitle}"
+								/>
+
+								<ObjectAttribute
+									active="false"
+									text="{constructionProgress>/address}"
+									title="{i18n>mainAddressTitle}"
+								/>
+							</attributes>
+							<statuses>
+								<ObjectStatus
+									text="{constructionProgress>/workStage}"
+									title="{i18n>mainWorkStageTitle}"
+									icon="sap-icon://eam-work-order"
+									textDirection="Inherit"
+									state="Warning"
+								/>
+							</statuses>
+						</ObjectHeader>
+
+						<Panel
+							backgroundDesign="Solid"
+							headerText="{i18n>mainHeaderTextTitle}"
+
+						>
+							<headerToolbar>
+								<Toolbar
+									style="Standard"
+									width="100%"
+								>
+									<Title text="{i18n>mainHeaderTextTitle}"/>
+									<ToolbarSpacer />
+									<Button
+										iconFirst="false"
+										press="onPressImage"
+										icon="sap-icon://image-viewer"
+										text="{i18n>mainButtonTitleImage}"
+										tooltip="{i18n>mainTooltipImage}"
+									/>
+									<Button
+										iconFirst="false"
+										press="onPressVideo" 
+										icon="sap-icon://video"
+										text="{i18n>mainButtonTitleVideo}" 
+										tooltip="{i18n>mainTooltipVideo}"
+									/>
+								</Toolbar>
+							</headerToolbar>
+
+
+							<form:SimpleForm 
+								id="SimpleFormDisplay"
+								editable="false"
+								layout="ResponsiveGridLayout"
+								width="100%"
+							>
+								<form:content>
+									<core:Title text="Obras"/>
+									<Label
+										text="{i18n>mainLabelTextLastUpdate}"
+										width="100%"
+									/>
+									<Text text="{constructionProgress>/lastUpdate}" />
+									
+									<core:Title />
+								</form:content>
+							</form:SimpleForm>
+
+
+							<form:SimpleForm 
+								id="SimpleFormDisplay1"
+								editable="false"
+								layout="ResponsiveGridLayout"
+								labelSpanXL="5"
+								labelSpanL="5"
+								labelSpanM="2"
+								labelSpanS="2"
+								adjustLabelSpan="false"
+								emptySpanXL="0"
+								emptySpanL="0"
+								emptySpanM="0"
+								emptySpanS="0"
+								columnsXL="5"
+								columnsL="5"
+								columnsM="2"
+								singleContainerFullSize="false" 
+								width="100%"
+							>
+								<form:content>
+									<core:Title/>
+									<VBox>
+										<VBox alignItems="Center">
+											<Title text="{i18n>mainRadialChartTitlePreliminary}" titleStyle="H4"/>
+										</VBox>
+
+										<commons:MicroProcessFlow>
+											<commons:content>
+												<commons:MicroProcessFlowItem stepWidth="25%">
+													<commons:customControl>
+														<microchart:RadialMicroChart 
+															size="M" 
+															percentage="{constructionProgress>/constructionProgress/preliminary/percentage}" 
+															valueColor="{constructionProgress>/constructionProgress/preliminary/valueColor}"
+														/>
+													</commons:customControl>
+												</commons:MicroProcessFlowItem>
+											</commons:content>
+										</commons:MicroProcessFlow>
+									</VBox>
+									
+									<core:Title />
+									<VBox>
+										<VBox alignItems="Center">
+											<Title text="{i18n>mainRadialChartTitleInfrastructure}" titleStyle="H4"/>
+										</VBox>
+
+										<commons:MicroProcessFlow>
+											<commons:content>
+												<commons:MicroProcessFlowItem stepWidth="25%">
+													<commons:customControl>
+														<microchart:RadialMicroChart 
+															size="M" 
+															percentage="{constructionProgress>/constructionProgress/infrastructure/percentage}" 
+															valueColor="{constructionProgress>/constructionProgress/infrastructure/valueColor}"
+														/>
+													</commons:customControl>
+												</commons:MicroProcessFlowItem>
+											</commons:content>
+										</commons:MicroProcessFlow>
+									</VBox>
+
+									<core:Title />
+									<VBox>
+										<VBox alignItems="Center">
+											<Title text="{i18n>mainRadialChartTitleFoundation}" titleStyle="H4"/>
+										</VBox>
+
+										<commons:MicroProcessFlow>
+											<commons:content>
+												<commons:MicroProcessFlowItem stepWidth="25%">
+													<commons:customControl>
+														<microchart:RadialMicroChart 
+															size="M" 
+															percentage="{constructionProgress>/constructionProgress/foundation/percentage}" 
+															valueColor="{constructionProgress>/constructionProgress/foundation/valueColor}"
+														/>
+													</commons:customControl>
+												</commons:MicroProcessFlowItem>
+											</commons:content>
+										</commons:MicroProcessFlow>
+									</VBox>
+
+									<core:Title />
+									<VBox>
+										<VBox alignItems="Center">
+											<Title text="{i18n>mainRadialChartTitleStructure}" titleStyle="H4"/>
+										</VBox>
+
+										<commons:MicroProcessFlow>
+											<commons:content>
+												<commons:MicroProcessFlowItem stepWidth="25%">
+													<commons:customControl>
+														<microchart:RadialMicroChart 
+															size="M" 
+															percentage="{constructionProgress>/constructionProgress/structure/percentage}" 
+															valueColor="{constructionProgress>/constructionProgress/structure/valueColor}"
+														/>
+													</commons:customControl>
+												</commons:MicroProcessFlowItem>
+											</commons:content>
+										</commons:MicroProcessFlow>
+									</VBox>
+
+									<core:Title/>
+									<VBox>
+										<VBox alignItems="Center">
+											<Title text="{i18n>mainRadialChartTitleFinishing}" titleStyle="H4"/>
+										</VBox>
+
+										<commons:MicroProcessFlow>
+											<commons:content>
+												<commons:MicroProcessFlowItem stepWidth="25%">
+													<commons:customControl>
+														<microchart:RadialMicroChart
+															size="M" 
+															percentage="{constructionProgress>/constructionProgress/finishing/percentage}" 
+															valueColor="{constructionProgress>/constructionProgress/finishing/valueColor}"
+														/>
+													</commons:customControl>
+												</commons:MicroProcessFlowItem>
+											</commons:content>
+										</commons:MicroProcessFlow>
+									</VBox>
+
+									<core:Title />
+									<VBox>
+										<VBox alignItems="Center">
+											<Title text="{i18n>mainRadialChartTitlePaving}" titleStyle="H4"/>
+										</VBox>
+
+										<commons:MicroProcessFlow>
+											<commons:content>
+												<commons:MicroProcessFlowItem stepWidth="25%">
+													<commons:customControl>
+														<microchart:RadialMicroChart 
+															size="M" 
+															percentage="{constructionProgress>/constructionProgress/paving/percentage}" 
+															valueColor="{constructionProgress>/constructionProgress/paving/valueColor}"
+														/>
+													</commons:customControl>
+												</commons:MicroProcessFlowItem>
+											</commons:content>
+										</commons:MicroProcessFlow>
+									</VBox>
+
+									<core:Title />
+									<VBox>
+										<VBox alignItems="Center">
+											<Title text="{i18n>mainRadialChartTitleLandscaping}" titleStyle="H4"/>
+										</VBox>
+
+										<commons:MicroProcessFlow>
+											<commons:content>
+												<commons:MicroProcessFlowItem stepWidth="25%">
+													<commons:customControl>
+														<microchart:RadialMicroChart
+															size="M" 
+															percentage="{constructionProgress>/constructionProgress/landscaping/percentage}" 
+															valueColor="{constructionProgress>/constructionProgress/landscaping/valueColor}"
+														/>
+													</commons:customControl>
+												</commons:MicroProcessFlowItem>
+											</commons:content>
+										</commons:MicroProcessFlow>
+									</VBox>
+
+									<core:Title />
+									<VBox>
+										<VBox alignItems="Center">
+											<Title text="{i18n>mainRadialChartTitleCheckList}" titleStyle="H4"/>
+										</VBox>
+
+										<commons:MicroProcessFlow>
+											<commons:content>
+												<commons:MicroProcessFlowItem stepWidth="25%">
+													<commons:customControl>
+														<microchart:RadialMicroChart
+															size="M" 
+															percentage="{constructionProgress>/constructionProgress/checkList/percentage}" 
+															valueColor="{constructionProgress>/constructionProgress/checkList/valueColor}"
+														/>
+													</commons:customControl>
+												</commons:MicroProcessFlowItem>
+											</commons:content>
+										</commons:MicroProcessFlow>
+									</VBox>
+
+									<core:Title />
+									<VBox>
+										<VBox alignItems="Center">
+											<Title text="{i18n>mainRadialChartTitleDocumentation}" titleStyle="H4"/>
+										</VBox>
+
+										<commons:MicroProcessFlow>
+											<commons:content>
+												<commons:MicroProcessFlowItem stepWidth="25%">
+													<commons:customControl>
+														<microchart:RadialMicroChart
+															size="M" 
+															percentage="{constructionProgress>/constructionProgress/documentation/percentage}" 
+															valueColor="{constructionProgress>/constructionProgress/documentation/valueColor}"
+														/>
+													</commons:customControl>
+												</commons:MicroProcessFlowItem>
+											</commons:content>
+										</commons:MicroProcessFlow>
+									</VBox>
+
+									<core:Title/>
+									<VBox>
+										<VBox alignItems="Center">
+											<Title text="{i18n>mainRadialChartTitleGeneral}" titleStyle="H4"/>
+										</VBox>
+
+										<commons:MicroProcessFlow>
+											<commons:content>
+												<commons:MicroProcessFlowItem stepWidth="25%">
+													<commons:customControl>
+														<microchart:RadialMicroChart 
+															size="M" 
+															percentage="{constructionProgress>/constructionProgress/general/percentage}" 
+															valueColor="{constructionProgress>/constructionProgress/general/valueColor}"
+														/>
+													</commons:customControl>
+												</commons:MicroProcessFlowItem>
+											</commons:content>
+										</commons:MicroProcessFlow>
+									</VBox>
+								</form:content>
+							</form:SimpleForm>
+						</Panel>
+					</Panel>
+				</content>
+			</Page>
+		</pages>
+	</NavContainer>
+</mvc:View>

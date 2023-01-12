@@ -1,0 +1,224 @@
+{
+    "_version": "1.32.0",
+    "sap.app": {
+        "id": "com.itsgroup.brz.constructionstage",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "resources": "resources.json",
+        "dataSources": {
+            "C4C_MOCK": {
+                "uri": "/sap/c4c/odata/v1/c4codataapi/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            },
+            "C4C_Z": {
+                "uri": "/sap/c4c/odata/cust/v1/z_parametro_empreendimento/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            },
+            "C4C_Sale": {
+                "uri": "/sap/c4c/odata/cust/v1/z_salesorg_situobra/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            },
+            "c4codatagetuser": {
+                "uri": "/http/poc/getuser/v2",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml"
+                }
+            }
+        },
+        "ach": "ach",
+        "crossNavigation": {
+            "inbounds": {
+                "com-itsgroup-brz-constructionstage-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "ConstructionStage",
+                    "action": "Display",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "icon": "sap-icon://eam-work-order"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://task",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "rootView": {
+            "viewName": "com.itsgroup.brz.constructionstage.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "App"
+        },
+        "dependencies": {
+            "minUI5Version": "1.84.17",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.ui.layout": {},
+                "sap.f": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.itsgroup.brz.constructionstage.i18n.i18n"
+                }
+            },
+            "appView": {
+                "type": "sap.ui.model.json.JSONModel"
+            },
+            "mainView": {
+                "type": "sap.ui.model.json.JSONModel"
+            },
+            "enterprises": {
+                "type": "sap.ui.model.json.JSONModel"
+            },
+            "constructionProgress": {
+                "type": "sap.ui.model.json.JSONModel"
+            },
+            "": {
+                "dataSource": "C4C_MOCK",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true,
+                    "defaultBindingMode": "TwoWay",
+                    "refreshAfterChange": true
+                }
+            },
+            "C4C_Z": {
+                "dataSource": "C4C_Z",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true,
+                    "defaultBindingMode": "TwoWay",
+                    "refreshAfterChange": true
+                }
+            },
+            "C4C_Sale": {
+                "dataSource": "C4C_Sale",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true,
+                    "defaultBindingMode": "TwoWay",
+                    "refreshAfterChange": true
+                }
+            },
+            "c4codatagetuser": {
+                "dataSource": "c4codatagetuser",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true,
+                    "defaultBindingMode": "TwoWay",
+                    "refreshAfterChange": true
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "com.itsgroup.brz.constructionstage.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
+            "routes": [
+                {
+                    "pattern": "main/{id}",
+                    "name": "main",
+                    "target": [
+                        "main"
+                    ]
+                },
+                {
+                    "pattern": "notFound",
+                    "name": "notFound",
+                    "target": [
+                        "notFound"
+                    ]
+                }
+            ],
+            "targets": {
+                "main": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "viewName": "Main",
+                    "viewId": "main",
+                    "title": "{i18n>mainViewTitle}"
+                },
+                "notFound": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "viewName": "NotFound",
+                    "viewId": "notFound"
+                }
+            }
+        }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "com-itsgroup-brz-constructionstage"
+    }
+}
